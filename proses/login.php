@@ -12,10 +12,25 @@ if($data){
 
     if($password === $data['password']){
 
+        // simpan session
         $_SESSION['login'] = true;
         $_SESSION['username'] = $data['username'];
+        $_SESSION['role'] = $data['role'];
 
-        header("Location: http://localhost/124240016_RBPL/pages/Dashboard_admin.php");
+        // redirect sesuai role
+        if($data['role'] == 'admin'){
+            header("Location: http://localhost/124240016_RBPL/pages/Dashboard_admin.php");
+        }
+        elseif($data['role'] == 'mekanik'){
+            header("Location: http://localhost/124240016_RBPL/pages/Dashboard_mekanik.php");
+        }
+        elseif($data['role'] == 'petugas'){
+            header("Location: http://localhost/124240016_RBPL/pages/Dashboard_petugas.php");
+        }
+        else{
+            header("Location: http://localhost/124240016_RBPL/pages/Login.php");
+        }
+
         exit;
 
     }else{
