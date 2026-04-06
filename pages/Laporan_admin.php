@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if(!isset($_SESSION['login']) || $_SESSION['role'] != 'admin'){
     header("Location: Login.php");
     exit;
@@ -39,55 +40,64 @@ $permintaan = mysqli_fetch_assoc(mysqli_query($connect,"
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Laporan</title>
-
+<link rel="stylesheet" href="style.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
 
 body{
     background:linear-gradient(180deg,#081826,#0b2233);
     color:white;
-    padding-bottom:90px;
+    font-size:16px;       /* dari 14 → lebih jelas */
+    line-height:1.6;      /* lebih lega */
+    letter-spacing:0.3px; /* biar enak dibaca */
+    padding-bottom:100px;
 }
 
 /* HEADER */
 .header{
     padding:20px;
-    font-size:20px;
-    font-weight:bold;
     display:flex;
     justify-content:space-between;
     align-items:center;
+    font-size:20px;   /* lebih besar */
+    font-weight:700;  /* lebih tegas */
 }
 
 /* FILTER */
 .filter{
     margin:0 20px 20px;
     background:#12283b;
-    padding:12px;
-    border-radius:25px;
+    padding:12px 16px;
+    border-radius:20px;
     display:flex;
     justify-content:space-between;
     color:#9bb6cc;
-    font-size:14px;
+    font-size:14px;   /* naik */
 }
 
 /* CARD */
 .card{
     background:#12283b;
     margin:0 20px 15px;
-    padding:18px;
+    padding:16px;
     border-radius:14px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.2);
 }
 
 .card-title{
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    gap:8px;
+    font-size:15px;   /* dari 14 */
+    font-weight:600;
     margin-bottom:10px;
-}
-
-.card-title span{
-    font-weight:bold;
 }
 
 /* GRID */
@@ -104,9 +114,16 @@ body{
 
 .item b{
     display:block;
+    margin-top:4px;
+    font-size:18px;   /* angka jadi jelas */
+    font-weight:700;
     color:white;
-    margin-top:5px;
 }
+
+/* WARNA KHUSUS */
+.green{color:#4caf50;}
+.red{color:#ff6b6b;}
+.blue{color:#2f86ff;}
 
 /* NAVBAR */
 .navbar{
@@ -126,7 +143,10 @@ body{
     color:#9bb6cc;
 }
 
-.nav-item.active{ color:#1e88e5; }
+.nav-item.active{
+    color:#2f86ff;
+    font-weight:600;
+}
 
 .nav-item svg{
     display:block;
@@ -140,9 +160,10 @@ body{
 
 <!-- HEADER -->
 <div class="header">
-    Laporan
-    <!-- icon download -->
-    <svg width="22" height="22" fill="none" stroke="white" stroke-width="2">
+    <span>Laporan</span>
+
+    <!-- ICON DOWNLOAD -->
+    <svg width="20" height="20" fill="none" stroke="#2f86ff" stroke-width="2">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
         <polyline points="7 10 12 15 17 10"/>
         <line x1="12" y1="15" x2="12" y2="3"/>
@@ -158,13 +179,18 @@ body{
 <!-- LAPORAN PENJUALAN -->
 <div class="card">
     <div class="card-title">
-        <span>📊 Laporan Penjualan</span>
-        >
+        <svg width="18" height="18" fill="none" stroke="#2f86ff" stroke-width="2">
+            <line x1="4" y1="20" x2="4" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="20" y1="20" x2="20" y2="14"/>
+        </svg>
+        Laporan Penjualan
     </div>
+
     <div class="grid">
         <div class="item">
             Total Penjualan
-            <b>Rp <?php echo number_format($penjualan['total'] ?? 0,0,',','.'); ?></b>
+            <b class="green">Rp <?php echo number_format($penjualan['total'] ?? 0,0,',','.'); ?></b>
         </div>
         <div class="item">
             Transaksi
@@ -176,17 +202,20 @@ body{
 <!-- LAPORAN STOK -->
 <div class="card">
     <div class="card-title">
-        <span>📦 Laporan Stok</span>
-        >
+        <svg width="18" height="18" fill="none" stroke="#4caf50" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18"/>
+        </svg>
+        Laporan Stok
     </div>
+
     <div class="grid">
         <div class="item">
             Barang Masuk
-            <b><?php echo $stok['masuk'] ?? 0; ?></b>
+            <b class="green"><?php echo $stok['masuk'] ?? 0; ?></b>
         </div>
         <div class="item">
             Barang Keluar
-            <b><?php echo $stok['keluar'] ?? 0; ?></b>
+            <b class="red"><?php echo $stok['keluar'] ?? 0; ?></b>
         </div>
     </div>
 </div>
@@ -194,17 +223,22 @@ body{
 <!-- PERMINTAAN -->
 <div class="card">
     <div class="card-title">
-        <span>🛒 Permintaan Barang</span>
-        >
+        <svg width="18" height="18" fill="none" stroke="#ff9800" stroke-width="2">
+            <circle cx="9" cy="21" r="1"/>
+            <circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.5 12h11l2-8H6"/>
+        </svg>
+        Permintaan Barang
     </div>
+
     <div class="grid">
         <div class="item">
             Permintaan Baru
-            <b><?php echo $permintaan['baru'] ?? 0; ?></b>
+            <b class="blue"><?php echo $permintaan['baru'] ?? 0; ?></b>
         </div>
         <div class="item">
             Selesai
-            <b><?php echo $permintaan['selesai'] ?? 0; ?></b>
+            <b class="green"><?php echo $permintaan['selesai'] ?? 0; ?></b>
         </div>
     </div>
 </div>
@@ -212,28 +246,28 @@ body{
 <!-- NAVBAR -->
 <div class="navbar">
 
-<div class="nav-item" onclick="location.href='Dashboard_admin.php'">
+<div class="nav-item <?= basename($_SERVER['PHP_SELF']) == 'Dashboard_admin.php' ? 'active' : '' ?>" onclick="location.href='Dashboard_admin.php'">
 <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
 <path d="M3 9l9-7 9 7v11H3z"/>
 </svg>
 Dashboard
 </div>
 
-<div class="nav-item" onclick="location.href='daftar_barang.php'">
+<div class="nav-item <?= basename($_SERVER['PHP_SELF']) == 'DaftarBarang_admin.php' ? 'active' : '' ?>" onclick="location.href='DaftarBarang_admin.php'">
 <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
 <rect x="3" y="3" width="18" height="18"/>
 </svg>
 Barang
 </div>
 
-<div class="nav-item" onclick="location.href='transaksi.php'">
+<div class="nav-item <?= basename($_SERVER['PHP_SELF']) == 'Transaksi_admin.php' ? 'active' : '' ?>" onclick="location.href='Transaksi_admin.php'">
 <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
 <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
 </svg>
 Transaksi
 </div>
 
-<div class="nav-item active" onclick="location.href='laporan.php'">
+<div class="nav-item <?= basename($_SERVER['PHP_SELF']) == 'Laporan_admin.php' ? 'active' : '' ?>" onclick="location.href='Laporan_admin.php'">
 <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
 <line x1="4" y1="20" x2="4" y2="10"/>
 <line x1="12" y1="20" x2="12" y2="4"/>
@@ -242,7 +276,7 @@ Transaksi
 Laporan
 </div>
 
-<div class="nav-item" onclick="location.href='profil.php'">
+<div class="nav-item <?= basename($_SERVER['PHP_SELF']) == 'Profil_admin.php' ? 'active' : '' ?>" onclick="location.href='Profil_admin.php'">
 <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
 <circle cx="12" cy="8" r="4"/>
 <path d="M6 20c0-4 12-4 12 0"/>
@@ -251,6 +285,12 @@ Profil
 </div>
 
 </div>
+
+<script>
+if(localStorage.getItem("theme") === "light"){
+    document.body.classList.add("light");
+}
+</script>
 
 </body>
 </html>

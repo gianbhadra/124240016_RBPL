@@ -5,19 +5,34 @@ include "config.php";
 $username = $_POST['username'];
 $password = $_POST['password'];
 
+// hindari error kosong
+if(empty($username) || empty($password)){
+    header("Location: http://localhost/124240016_RBPL/pages/Login.php?error=1");
+    exit;
+}
+
+// query user
 $query = mysqli_query($connect,"SELECT * FROM users WHERE username='$username' OR email='$username'");
 $data = mysqli_fetch_assoc($query);
 
 if($data){
 
+    // cek password
     if($password === $data['password']){
 
-        // simpan session
+        // ======================
+        // SESSION LOGIN
+        // ======================
         $_SESSION['login'] = true;
         $_SESSION['username'] = $data['username'];
         $_SESSION['role'] = $data['role'];
 
-        // redirect sesuai role
+        // 🔥 PENTING (BIAR DASHBOARD DINAMIS)
+        $_SESSION['id_user'] = $data['id'];
+
+        // ======================
+        // REDIRECT ROLE
+        // ======================
         if($data['role'] == 'admin'){
             header("Location: http://localhost/124240016_RBPL/pages/Dashboard_admin.php");
         }

@@ -1,0 +1,20 @@
+:root{
+    --bg: #081826;
+    --bg2: #0b2233;
+    --card: #12283b;
+    --text: #ffffff;
+    --subtext: #9bb6cc;
+}
+
+body{
+    background:linear-gradient(180deg,var(--bg),var(--bg2));
+    color:var(--text);
+}
+
+body.light{
+    --bg: #f4f7fb;
+    --bg2: #e9eef5;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --subtext: #555;
+}
