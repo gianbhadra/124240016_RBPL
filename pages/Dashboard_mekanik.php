@@ -152,13 +152,23 @@ body{
 
 .nav-item{
     text-align:center;
-    font-size:12px;
     color:#9bb6cc;
     cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    font-size:12px;
 }
 
-.nav-item.active{color:#1e88e5;}
-.nav-item svg{display:block;margin:auto;margin-bottom:4px;}
+.nav-item.active{
+    color:#1e88e5;
+    font-weight:600;
+}
+.nav-item svg{
+    display:block;
+    margin:auto;
+    margin-bottom:4px;
+}
 </style>
 </head>
 
@@ -168,7 +178,7 @@ body{
 <div class="header">
     Beranda
 
-    <div class="profile" onclick="location.href='Profil.php'">
+    <div class="profile" onclick="location.href='Profil_mekanik.php'">
         <svg width="24" height="24" fill="none" stroke="white" stroke-width="2">
             <circle cx="12" cy="8" r="4"/>
             <path d="M6 20c0-4 12-4 12 0"/>
@@ -237,10 +247,32 @@ body{
 </div>
 
 <!-- NAVBAR -->
+<!-- NAVBAR -->
 <div class="navbar">
-    <div class="nav-item active" onclick="location.href='Dashboard_mekanik.php'">Dashboard</div>
-    <div class="nav-item" onclick="location.href='Riwayat.php'">Riwayat</div>
-    <div class="nav-item" onclick="location.href='Cari.php'">Cari Barang</div>
+
+    <div class="nav-item active" onclick="location.href='Dashboard_mekanik.php'">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11H3z"/>
+        </svg>
+        Dashboard
+    </div>
+
+    <div class="nav-item" onclick="location.href='RiwayatPermintaan.php'">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3h18v18H3z"/>
+            <path d="M8 12h8M8 8h8M8 16h5"/>
+        </svg>
+        Riwayat
+    </div>
+
+    <div class="nav-item" onclick="location.href='CariBarang.php'">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        Cari
+    </div>
+
 </div>
 
 </body>
